@@ -33,9 +33,14 @@ router.get("/logout", (req, res) => {
 router.get("/addRecipe", (req, res) => {
   res.render("addRecipe");
 });
-router.get("/updateRecipe", (req, res) => {
+router.get("/updateRecipe/:id", async (req, res) => {
+  if (req.params.id === "6677f45e4b41a8f0f1ec0df6") {
+    console.log("i m herh");
+  } else {
+    console.log("aaas");
+  }
   try {
-    const recipe = Recipe.findById(req.params.id);
+    const recipe = await Recipe.findById(req.params.id);
     if (!recipe) {
       return res.status(404).send("Recipe not found");
     }
