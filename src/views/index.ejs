@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe List</title>
+    <style>
+        /* Some basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            margin: 20px;
+            padding: 20px;
+        }
+        .recipe {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .recipe h2 {
+            margin-bottom: 5px;
+        }
+        .recipe p {
+            margin: 5px 0;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recipe List</h1>
+    <% if (isLoggedIn) { %>
+        <a href="/logout">Logout</a> <!-- Assuming you have a logout route -->
+        <br>
+        <a href="/addRecipe">Add new Recipe</a>
+    <% } else { %>
+        <a href="/login">Login</a> <!-- Link to your login page -->
+    <% } %>
+   
+    <% recipes.forEach(recipe => { %>
+        <div class="recipe">
+            <h2><%= recipe.title %></h2>
+            <p><strong>Ingredients:</strong></p>
+            <ul>
+                <% recipe.ingredients.forEach(ingredient => { %>
+                    <li><%= ingredient %></li>
+                <% }); %>
+            </ul>
+            <p><strong>Instructions:</strong></p>
+            <p><%= recipe.instructions %></p>
+            <p><strong>Category:</strong> <%= recipe.category %></p>
+            <p><strong>Created At:</strong> <%= new Date(recipe.createdAt).toLocaleString() %></p>
+            
+            <% if (isLoggedIn) { %>
+                <a href="/updateRecipe">U</a>
+                <div class="actions">
+                    
+                    <form action="/api/recipes/<%= recipe._id %>" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+        </div> 
+    <% }); %>
+</body>
+</html>
