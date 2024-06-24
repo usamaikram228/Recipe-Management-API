@@ -59,7 +59,7 @@
             <p><strong>Created At:</strong> <%= new Date(recipe.createdAt).toLocaleString() %></p>
             
             <% if (isLoggedIn) { %>
-                <a href="/updateRecipe/<%= recipe._id %>">U</a>
+                <a href="/updateRecipe/<%= recipe._id %>">Update</a>
                 <div class="actions">
                     
                     <form action="/api/recipes/<%= recipe._id %>" method="post" style="display:inline;">
